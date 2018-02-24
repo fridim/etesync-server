@@ -1,0 +1,3 @@
+# etesync for Docker and OpenShift
+
+Etesync is a sync application for mobile with a backend server and client-side encryption. Learn more at link:https://www.etesync.com/[etesync project]
