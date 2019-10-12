@@ -1,3 +1,5 @@
 # etesync for Docker and OpenShift
 
+image:https://quay.io/repository/fridim/etesync-server/status["Docker Repository on Quay", link="https://quay.io/repository/fridim/etesync-server"]
+
 Etesync is a sync application for mobile with a backend server and client-side encryption. Learn more at link:https://www.etesync.com/[etesync project]
