@@ -2,12 +2,12 @@
 
 set -xe
 
-. /.venv/bin/activate
+. /server/.venv/bin/activate
 
 cd /data
 
 if [ ! -z "$@" ]; then
-    /manage.py "$@"
+    /server/manage.py "$@"
 fi
 
 if [ ! -e "${ETESYNC_SECRET}" ]; then
@@ -16,7 +16,7 @@ fi
 
 if [ ! -e "${ETESYNC_DB_PATH}" ]; then
     # first run
-    /manage.py migrate
+    /server/manage.py migrate
 fi
 
-/manage.py runserver 0.0.0.0:8000
+/server/manage.py runserver 0.0.0.0:8000
