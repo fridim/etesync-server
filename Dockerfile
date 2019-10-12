@@ -1,5 +1,5 @@
 # Etesync docker image
-# https://github.com/etesync/server-skeleton.git
+# https://github.com/etesync/server.git
 
 FROM alpine
 MAINTAINER fridim fridim@onfi.re
@@ -16,15 +16,16 @@ LABEL io.k8s.description="etesync server, self-hosted contacts and calendars" \
       io.openshift.expose-services="8000,etesync"
 
 RUN apk add -U git \
-python \
+python3 \
 py-pip \
 sqlite
 
-RUN pip install virtualenv
+RUN pip install virtualenv \
+    && pip install --upgrade pip
 
-RUN git clone https://github.com/etesync/server-skeleton.git \
-    && cd /server-skeleton \
-    && virtualenv .venv \
+RUN git clone https://github.com/etesync/server.git \
+    && cd server \
+    && virtualenv -p python3 .venv \
     && source .venv/bin/activate \
     && pip install -r requirements.txt
 
@@ -32,8 +33,8 @@ RUN git clone https://github.com/etesync/server-skeleton.git \
 # move the settings to /etc/etesync so it can be overwritten by a configmap
 RUN mkdir /etc/etesync
 COPY settings.py /etc/etesync
-RUN rm /server-skeleton/etesync_server/settings.py \
-&& ln -s /etc/etesync/settings.py /server-skeleton/etesync_server/settings.py
+RUN rm /server/etesync_server/settings.py \
+&& ln -s /etc/etesync/settings.py /server/etesync_server/settings.py
 
 RUN apk del git && rm -rf /var/cache/apk/*
 COPY entrypoint.sh /
